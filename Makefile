@@ -1,11 +1,21 @@
-up:
-	docker-compose up
+DATABASE=postgres://postgres:ucommerce@127.0.0.1:5432/ucommerce?sslmode=disable
+MIGRATIONS=file://postgres/migrations
+
+migrate:
+	migrate -source $(MIGRATIONS) -database $(DATABASE) up
 
 down:
-	docker-compose down
+	migrate -source $(MIGRATIONS) -database $(DATABASE) down
 
-build:
-	go build -ldflags="-w -s"
+drop:
+	migrate -source $(MIGRATIONS) -database $(DATABASE) drop
 
-run:
-	go run main.go
+migration:
+	@read -p "Enter migration name: " name; \
+	migrate create -ext sql -dir postgres/migrations $$name
+
+sqlc:
+	sqlc generate
+
+psql:
+	psql -U nabiizy sqlc

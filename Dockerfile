@@ -23,6 +23,8 @@ WORKDIR /app
 
 # Copy the binary from the build stage
 COPY --from=builder /app/main . 
+COPY postgres/migrations ./postgres/migrations
+COPY app.env .
 
 # Expose the app's port
 EXPOSE 8000

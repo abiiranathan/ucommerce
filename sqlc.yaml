@@ -22,6 +22,6 @@ sql:
           - db_type: "date"
             nullable: true
             go_type:
-              import: "github.com/abiiranathan/ucommerce/dbtypes"
+              import: "github.com/abiiranathan/dbtypes"
               type: "Date"
               pointer: true
